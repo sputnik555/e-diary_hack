@@ -59,7 +59,7 @@ def create_commendation(schoolkid, subject):
 
 def hack_diary(child_name, subject_title):
     try:
-        schoolkid = Schoolkid.objects.filter(full_name__contains=child_name).get()
+        schoolkid = get_schoolkid_by_name(child_name)
     except Schoolkid.MultipleObjectsReturned:
         print('Найдено несколько учеников с указанным именем.')
         return
