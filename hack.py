@@ -80,7 +80,8 @@ def hack_diary(child_name, subject_title):
     try:
         subject = Subject.objects.filter(
             title__contains=subject_title,
-            year_of_study=schoolkid.year_of_study).get()
+            year_of_study=schoolkid.year_of_study
+        ).get()
     except Subject.MultipleObjectsReturned:
         print('Найдено несколько предметов с указанным названием.')
         return
