@@ -1,5 +1,7 @@
 import random
-from datacenter.models import Lesson, Chastisement, Schoolkid, Mark, Commendation, Subject
+from datacenter.models import (Lesson, Chastisement, Schoolkid,
+                               Mark, Commendation, Subject)
+
 
 PRISE_LIST = (
     'Молодец!',
@@ -51,10 +53,19 @@ def delete_chastisements(schoolkid):
 
 
 def create_commendation(schoolkid, subject):
-    lesson = Lesson.objects.filter(year_of_study=schoolkid.year_of_study, group_letter=schoolkid.group_letter,
-                                   subject=subject).order_by('-date').first()
-    Commendation.objects.create(schoolkid=schoolkid, subject=lesson.subject, teacher=lesson.teacher,
-                                created=lesson.date, text=random.choice(PRISE_LIST))
+    lesson = Lesson.objects.filter(
+        year_of_study=schoolkid.year_of_study,
+        group_letter=schoolkid.group_letter,
+        subject=subject
+    ).order_by('-date').first()
+    Commendation.objects.create(
+        schoolkid=schoolkid,
+        subject=lesson.subject,
+        teacher=lesson.teacher,
+        created=lesson.date,
+        text=random.choice(PRISE_LIST)
+    )
+
 
 def hack_diary(child_name, subject_title):
     try:
@@ -67,7 +78,9 @@ def hack_diary(child_name, subject_title):
         return
 
     try:
-        subject = Subject.objects.filter(title__contains=subject_title, year_of_study=schoolkid.year_of_study).get()
+        subject = Subject.objects.filter(
+            title__contains=subject_title,
+            year_of_study=schoolkid.year_of_study).get()
     except Subject.MultipleObjectsReturned:
         print('Найдено несколько предметов с указанным названием.')
         return
