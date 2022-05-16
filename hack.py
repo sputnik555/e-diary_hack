@@ -58,6 +58,8 @@ def create_commendation(schoolkid, subject):
         group_letter=schoolkid.group_letter,
         subject=subject
     ).order_by('-date').first()
+    if not lesson:
+        raise Lesson.DoesNotExist
     Commendation.objects.create(
         schoolkid=schoolkid,
         subject=lesson.subject,
@@ -91,4 +93,7 @@ def hack_diary(child_name, subject_title):
 
     fix_marks(schoolkid)
     delete_chastisements(schoolkid)
-    create_commendation(schoolkid, subject)
+    try:
+        create_commendation(schoolkid, subject)
+    except Lesson.DoesNotExist:
+        print('Не найден указанный урок в расписании класса. Похвала не создана')
