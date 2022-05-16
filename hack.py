@@ -37,7 +37,7 @@ PRISE_LIST = (
 
 
 def get_schoolkid_by_name(schoolkid_name):
-    return Schoolkid.objects.filter(full_name__contains=schoolkid_name).get()
+    return Schoolkid.objects.get(full_name__contains=schoolkid_name)
 
 
 def fix_marks(schoolkid):
